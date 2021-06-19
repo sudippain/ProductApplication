@@ -69,6 +69,7 @@ public class ProductServiceImpl implements ProductService {
 		Optional<ProductDetails> pd = productRepository.findById(productId);
 		
 		System.out.println("Product Object =====> "+pd);
+		
 		if (pd.isEmpty()) {
 			throw new ProductNotFoundException("Not found product ");
 		}
