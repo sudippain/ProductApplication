@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: epaisud
+Build-Jdk: 15.0.2
+Implementation-Title: ProductApplication
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.example
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/ProductApplication
+Created-By: Maven Integration for Eclipse
+
