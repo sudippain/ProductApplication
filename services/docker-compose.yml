@@ -1,0 +1,22 @@
+version: "3.9"
+services: 
+    web:
+      image: productappimage
+      build:
+        context: .
+        dockerfile: .
+      deploy:
+        mode: replicated
+        replicas: 3
+      restart: always
+      ports:
+        - 8080  #For Multiple node no need to map with port 
+      networks:
+        - overlay-network
+      healthcheck:
+        test: "exit 0"
+        
+networks:
+  overlay-network:
+    driver: bridge #default one
+      
