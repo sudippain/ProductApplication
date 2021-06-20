@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		System.out.println("Product Object =====> "+pd);
 		
-		if (pd.isEmpty()) {
+		if (!pd.isPresent()) {
 			throw new ProductNotFoundException("Not found product ");
 		}
 		if(pd.get().getUserEmail().equals(userEmail)) {
