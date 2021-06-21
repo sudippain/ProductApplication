@@ -33,6 +33,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/user/registerUser").permitAll()
 		.antMatchers("/user/login").permitAll()
 		.antMatchers("/h2-console/**/").permitAll()
+		.antMatchers("/user/status").permitAll()
 		.anyRequest().authenticated()
 		.and().headers().frameOptions().sameOrigin()
 		.and()

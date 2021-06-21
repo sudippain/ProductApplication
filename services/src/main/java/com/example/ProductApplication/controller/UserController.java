@@ -59,6 +59,11 @@ public class UserController extends ErrorHandler {
 	@Value("${practice.key}")
 	private String secretKey;
 	
+	@GetMapping("/status")
+	public String statusCheck() {
+		return "Healthy";
+	}
+	
 	@PostMapping("/registerUser")
 	public String registerUser(@Valid @RequestBody User user){
 		System.out.println("Inside Controller");
