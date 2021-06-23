@@ -1,0 +1,16 @@
+fieldset{
+
+    padding: 20px;
+    background-color: #fae596;
+    border-radius: 10px;    
+    
+}
+
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+    padding-right: 7px;
+  }

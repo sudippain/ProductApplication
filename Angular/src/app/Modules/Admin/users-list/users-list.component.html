@@ -1,0 +1,58 @@
+<div class="topnav">
+
+  
+  <a [routerLink]="['/UsersList']" class="active"  ><i class="fa fa-user" aria-hidden="true"></i>&nbsp;UserDetails</a>
+  <a [routerLink]="['/ProductList']"  ><i class="fa fa-user" aria-hidden="true"></i>&nbsp;ProductList</a>
+ <a style="float:right;background-color: crimson"  (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>
+ <div class="search-container">
+  <!-- <form class="formDesign" [formGroup]="userSearchForm"  (ngSubmit)="getUser(userSearchForm.value)">
+    <input #searchvalue type="text"  formControlName="userName" placeholder="Search.." name="search" (keyup)="getDynamic(searchvalue.value)">
+    <button type="submit" ><i class="fa fa-search"></i></button> 
+    </form>   -->
+    <input #searchvalue type="text"   placeholder="Search By Name" name="search" (keyup)="getDynamic(searchvalue.value)">
+
+
+</div>
+  
+  </div>
+  <br>
+<div class="container">
+    
+<div class="table-responsive">
+  
+        <table class="table" *ngIf="usersList.length>0">
+         
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">SI No.</th>
+                <th scope="col">User_Name</th>
+                <th scope="col">User_Email</th>
+                <th scope="col">Active/Deactive</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of usersList |  paginate: { itemsPerPage: 5, currentPage: p }">
+                
+                <td>{{usersList.indexOf(user)+1}}</td>
+              
+                <td>{{user.userName}}</td>
+                <td>{{user.userEmail}}</td>
+               
+              
+               <td>
+                 
+                <span *ngIf="user.userStatus" (click)="changeStatus(user.userEmail,user.userStatus)"><i class="fa fa-user" style="font-size:25px;cursor: pointer"></i><i class="fa fa-check" style="font-size:15px;color:rgb(189, 255, 9)"></i></span>
+                <span *ngIf="!user.userStatus"  (click)="changeStatus(user.userEmail,user.userStatus)"><i class="fa fa-user" style="font-size:25px;cursor: pointer"></i><i class="fa fa-ban" style="font-size:15px;color:red"></i></span>
+            
+                  </td>
+          
+              </tr>
+              <tr> <th colspan="6"><pagination-controls (pageChange)="p = $event"></pagination-controls></th>  </tr>
+          
+            </tbody>
+          </table>
+        </div>
+         <h3 *ngIf="usersList.length==0">User Not Found</h3>
+        
+
+</div>

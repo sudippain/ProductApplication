@@ -1,0 +1,46 @@
+<div class="topnav">
+
+  
+  <a [routerLink]="['/UsersList']"  ><i class="fa fa-user" aria-hidden="true"></i>&nbsp;UserDetails</a>
+  <a [routerLink]="['/ProductList']" class="active"  ><i class="fa fa-user" aria-hidden="true"></i>&nbsp;ProductList</a>
+ <a style="float:right;background-color: crimson"  (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>
+
+  
+  </div>
+  <br>
+   
+   
+   <div class="container-fluid">
+      <div class="table-responsive" >
+  
+  
+          <table class="table" *ngIf="productList?.length">
+              <thead class="thead-light">
+                <tr>
+                 
+                  <th scope="col">S.No</th>
+                  <th scope="col">P.Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">UserEmail</th>
+                 
+                 
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of productList |  paginate: { itemsPerPage: 5, currentPage: p }">
+                
+                  <td>{{productList.indexOf(product)+1}}</td>
+                  <td>{{product.product}}</td>
+                  <td>{{product.price}}</td>
+                  <td>{{product.quantity}}</td>
+                  <td>{{product.userEmail}}</td>
+                 
+                
+                </tr>
+                <tr> <th colspan="6"><pagination-controls (pageChange)="p = $event"></pagination-controls></th>  </tr>
+            
+              </tbody>
+            </table>
+           <div  *ngIf="product?.length==0"><h3>No History</h3></div>
+  </div>

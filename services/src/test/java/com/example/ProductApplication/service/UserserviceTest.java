@@ -61,7 +61,7 @@ public class UserserviceTest {
 		
 	//When Blacklist user wants to login
 		@Test
-		public void backListUserLogin(){
+		public void blackListUserLogin(){
 					
 			User u=new User();
 			u.setUserEmail("a@gmail.com");
@@ -94,12 +94,12 @@ public class UserserviceTest {
 		}
 	//BlackList User Test when status is true
 		@Test
-		public void backListUser(){
+		public void blackListUser(){
 			User u=new User();
 			u.setUserStatus(true);
 			when(mockRepo.findByUserEmail("sudip@gmail.com")).thenReturn(u);
 			when(mockRepo.save(u)).thenReturn(u);
-			assertEquals("Do You Want To Backlist",mockService.blackListUser("sudip@gmail.com"));
+			assertEquals("sudip@gmail.com is blacklisted",mockService.blackListUser("sudip@gmail.com"));
 		}
 	//Retain User Test when status is true
 			@Test
@@ -108,7 +108,7 @@ public class UserserviceTest {
 				u.setUserStatus(false);
 				when(mockRepo.findByUserEmail("sudip@gmail.com")).thenReturn(u);
 				when(mockRepo.save(u)).thenReturn(u);
-				assertEquals("Do You Want To Retain",mockService.blackListUser("sudip@gmail.com"));
+				assertEquals("sudip@gmail.com is resumed again",mockService.blackListUser("sudip@gmail.com"));
 			}
 		//when Email does not exist
 		@Test

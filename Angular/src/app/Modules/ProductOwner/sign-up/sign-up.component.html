@@ -1,0 +1,64 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-8 col-md-8 col-lg-4  offset-sm-1 offset-md-2 offset-lg-4">
+      <br>
+      <fieldset>
+      <legend><img src="assets/login.png" style="height: 60px;border-radius: 150px"></legend>   
+      <h4>Signup</h4><hr>
+      <form class="form-horizontal" class="formDesign" [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit(userRegistrationForm.value)">
+        <div class="form-group">
+          <label style="font-size: 20px;float: left;"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;User Name</label>
+          <input type="text" maxlength="25" id="userName" class="form-control" formControlName="userName"
+            [ngClass]="{'is-invalid':submitted && f.userName.errors}">
+          
+          <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+            <div id="nameError1" *ngIf="f.userName.errors.required">Name is required</div>
+            <div id="nameError2" *ngIf="f.userName.errors.minlength">Name must have atleast 2 characters</div>
+            <div id="nameError3" *ngIf="f.userName.errors.pattern">Name cannot have numbers</div>
+            
+
+        </div>
+        </div>
+        <div class="form-group">
+          <label style="font-size: 20px;float: left;"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Email</label>
+          <input type="text" id="userEmail" class="form-control" formControlName="userEmail"  [ngClass]="{'is-invalid':submitted && f.userEmail.errors}">
+          <div *ngIf="f.userEmail.errors && submitted" class="invalid-feedback">
+            <div *ngIf="f.userEmail.errors.required" id="emailError1">Email is required</div>
+            <div *ngIf="f.userEmail.errors.pattern" id="emailError2">Email must be valid email address</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label style="font-size: 20px;float: left;"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Contact</label>
+          <input type="text" maxlength="10" id="userContact" class="form-control" formControlName="userContactNumber"
+            [ngClass]="{'is-invalid':submitted && f.userContactNumber.errors}">
+            <div *ngIf="submitted && f.userContactNumber.errors" class="invalid-feedback">
+              <div id="contactError1" *ngIf="f.userContactNumber.errors.required">Contact number is required</div>
+              <div id="contactError2" *ngIf="f.userContactNumber.errors.minlength">Contact must have 10 characters</div>
+              <div id="contactError3" *ngIf="f.userContactNumber.errors.pattern">Contact must have numbers</div>
+            
+  
+          </div>
+        </div>
+        <div class="form-group">
+          <label style="font-size: 20px;float: left;"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Password</label>
+          <input type="password" maxlength="14" id="userPassword" class="form-control" formControlName="userPassword"
+            [ngClass]="{'is-invalid':submitted && f.userPassword.errors}">
+            <span toggle="#userPassword" class="fa fa-eye field-icon toggle-password"></span>
+          <div *ngIf="submitted && f.userPassword.errors" class="invalid-feedback">
+            <div *ngIf="f.userPassword.errors.required" id="passError1">Password is required</div>
+            <div *ngIf="f.userPassword.errors.pattern" id="passError2">Password must contain at least eight characters,one capital
+              letter and at least one number</div>
+
+          </div> 
+        </div><br>
+        <button type="reset" class="btn btn-primary" name="Reset" id="signupReset">Reset</button>&nbsp;
+        <!-- <button type="submit" class="btn btn-success" [disabled]="!userRegistrationForm.valid" name="Signup">Submit</button> -->
+        <button type="submit"  id="signup" class="btn btn-success"  name="Signup">Submit</button><br>
+        &nbsp;&nbsp;<b><a style="cursor: pointe;text-decoration: none;" routerLink="../Login">Login Here</a></b>
+      </form>
+      </fieldset>
+    </div>
+  </div>
+  <br>
+</div>

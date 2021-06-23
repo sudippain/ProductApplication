@@ -1,0 +1,73 @@
+ 
+  <div class="topnav">
+    
+    <!-- <a   [routerLink]="['/News']" ><i class="fa fa-product-hunt-o" aria-hidden="true"></i> &nbsp;News</a> -->
+    
+    <a class="active"  [routerLink]="['/Product']" ><i class="fa fa-product-hunt" aria-hidden="true"></i> &nbsp;Product</a>
+    <a [routerLink]="['/UserDetails']"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;UserDetails</a>
+   <a style="float:right;cursor:pointer;background-color:crimson" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>
+    <!-- <div class="search-container">
+      <form class="formDesign" [formGroup]="userSearchForm"  (ngSubmit)="onSearch(userSearchForm.value)">
+        <input type="text" id="searchValue" formControlName="userNewsSearch" placeholder="Search.." name="search">
+        <button type="submit" id="searchButton" ><i class="fa fa-search"></i></button>
+      </form>
+    
+    </div> -->
+    
+    </div>
+    <br>
+    <div class="container-fluid">
+<div class="row">
+  <div class="col-sm-8 col-md-6 col-lg-4 offset-sm-1 offset-md-2 offset-lg-4" > 
+   
+
+  <h1>Add New Product</h1>
+  
+  <form class="form-horizontal"  [formGroup]="productUpdateForm"  (ngSubmit)="onSubmit(productUpdateForm.value)"> 
+  
+    <div class="form-group">
+      <label style="font-size: 20px;float: left;" [ngStyle]="{'display':visiProduct?'block':'none'}">&nbsp;Product</label>
+    
+         
+      <input type="text"  id="product" placeholder="Product Name" class="form-control"  (focus)="focusInFunctionProduct()"  (focusout)="focusOutFunctionProduct()" placeholder="Product Name" onfocus="this.placeholder = ''"
+      onblur="this.placeholder = 'Product Name'" formControlName="product" [ngClass]="{'is-invalid':submitted && f.product.errors}">
+  
+      <div *ngIf="submitted && f.product.errors" class="invalid-feedback">
+        <div *ngIf="f.product.errors.required" id="productNameError1"><b>Product is required</b> </div>
+        <div *ngIf="f.product.errors.minlength" id="productNameError2"><b>Prduct name atleast 2 character</b></div>
+        <div *ngIf="f.product.errors.pattern" id="productNameError3"><b>Prduct name contains only alphabate</b></div>
+      </div>  
+    </div>
+
+    <div class="form-group">
+    <label style="font-size: 20px;float: left;" [ngStyle]="{'display':visiQuantity?'block':'none'}">&nbsp;Quantity</label>
+  
+       
+    <input type="text"  id="quantity" placeholder="Product Quantity" class="form-control"  (focus)="focusInFunctionQuantity()"  (focusout)="focusOutFunctionQuantity()" placeholder="Product Quantity" onfocus="this.placeholder = ''"
+    onblur="this.placeholder = 'Product Quantity'" formControlName="quantity" [ngClass]="{'is-invalid':submitted && f.quantity.errors}">
+
+    <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+      <div *ngIf="f.quantity.errors.required" id="productQuantityError1"><b>Quantity is required</b> </div>
+      <div *ngIf="f.quantity.errors.pattern" id="productQuantityError2"><b>Quantity must be a number</b></div>
+    </div>  
+  </div>
+ 
+  <div class="form-group">
+    <label style="font-size: 20px; float : left;" [ngStyle]="{'display':visiPrice?'block':'none'}">&nbsp;Price</label>
+    <input type="text" required id="price" (focus)="focusInFunction()"  (focusout)="focusOutFunction()" placeholder="Product Price" onfocus="this.placeholder = ''"
+    onblur="this.placeholder = 'Price'" class="form-control"  formControlName="price" [ngClass]="{'is-invalid':submitted && f.price.errors}">
+
+    <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+      <div *ngIf="f.price.errors.required" id="productPriceError1"><b>Quantity is required</b></div>
+      <div *ngIf="f.price.errors.pattern" id="productPriceError2"><b>Please Enter Quantity</b></div>
+
+    </div> 
+  </div>
+  <br>
+    <button  type="reset" class="btn btn-primary"  id="loginReset" name="Reset">Reset</button>    &nbsp;
+    <button  type="submit" class="btn btn-success" id="loginSuccess" name="Submit">Submit</button><br>
+ 
+  </form>
+</div>
+</div>
+</div>

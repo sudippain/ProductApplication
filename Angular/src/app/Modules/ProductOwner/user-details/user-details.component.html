@@ -1,0 +1,32 @@
+<div class="topnav">
+
+    <!-- <a [routerLink]="['/News']" ><i class="fa fa-newspaper-o" aria-hidden="true"></i> &nbsp;News</a> -->
+ 
+    <a   [routerLink]="['/Product']" ><i class="fa fa-product-hunt" aria-hidden="true"></i> &nbsp;Product</a>
+    <a [routerLink]="['/UserDetails']"  class="active"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;UserDetails</a>
+   <a style="float:right;background-color:crimson"  (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>
+    
+    
+    </div>
+    <br>
+  
+
+
+
+<h2 style="text-align:center">User Profile Card</h2><br>
+
+<div class="card">
+  <img src="assets/userIcon.png" alt="John" height="200px" style="width:100%;">
+  <h1>{{userDetails.userName}}</h1>
+  <p>{{userDetails.role}}</p>
+  <p class="title">{{userDetails.userEmail}}</p>
+  <p>{{userDetails.userContactNumber}}</p>
+  <div style="margin: 24px 0;">
+    <a href="#"><i class="fa fa-dribbble"></i></a> &nbsp;
+    <a href="#"><i class="fa fa-twitter"></i></a>  &nbsp;
+    <a href="#"><i class="fa fa-linkedin"></i></a>  &nbsp;
+    <a href="#"><i class="fa fa-facebook"></i></a> &nbsp;
+  </div>
+  <p><button>Contact</button></p>
+</div>
+

@@ -1,0 +1,46 @@
+ <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-8 col-md-6 col-lg-4 offset-sm-1 offset-md-2 offset-lg-4" > 
+        <br> <br>
+       <fieldset>
+      <legend><img src="assets/login.png" style="height: 60px;border-radius: 30px;"></legend>   
+      <h4>Login</h4><hr>
+  <form class="form-horizontal"  [formGroup]="userLoginForm"  (ngSubmit)="onSubmit(userLoginForm.value)"> 
+    
+    <div class="form-group">
+    <label style="font-size: 20px;float: left;" [ngStyle]="{'display':visiEmail?'block':'none'}"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Email</label>
+  
+       
+    <input type="text" id="userEmail" placeholder="Email" class="form-control"  (focus)="focusInFunctionEmail()"  (focusout)="focusOutFunctionEmail()" placeholder="User Password" onfocus="this.placeholder = ''"
+    onblur="this.placeholder = 'Email'" formControlName="userEmail" [ngClass]="{'is-invalid':submitted && f.userEmail.errors}">
+
+    <div *ngIf="submitted && f.userEmail.errors" class="invalid-feedback">
+      <div *ngIf="f.userEmail.errors.required" id="userEmailError1"><b>Email is required</b> </div>
+      <div *ngIf="f.userEmail.errors.pattern" id="userEmailError2"><b>Email must be valid email address</b></div>
+    </div>  
+  </div>
+ 
+  <div class="form-group">
+    <label style="font-size: 20px; float : left;" [ngStyle]="{'display':visi?'block':'none'}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Password</label>
+    <input type="password"  id="userPassword" (focus)="focusInFunction()"  (focusout)="focusOutFunction()" placeholder="User Password" onfocus="this.placeholder = ''"
+    onblur="this.placeholder = 'Password'" class="form-control"  formControlName="userPassword" [ngClass]="{'is-invalid':submitted && f.userPassword.errors}">
+    <span toggle="#userPassword" class="fa fa-eye field-icon toggle-password"></span>
+    <div *ngIf="submitted && f.userPassword.errors" class="invalid-feedback">
+      <div *ngIf="f.userPassword.errors.required" id="userPassError1"><b>Password is required</b></div>
+      <div *ngIf="f.userPassword.errors.pattern" id="userPassError2"><b>Password must contain at least eight characters,one capital letter and at least one number</b></div>
+
+    </div> 
+  </div>
+  <br>
+    <button  type="reset" class="btn btn-primary"  id="loginReset" name="Reset">Reset</button>    &nbsp;
+    <button  type="submit" class="btn btn-success" id="loginSuccess" name="Login">Submit</button><br>
+ <!-- <button class="btn btn-link font-weight-bold" style=" text-decoration: none; " id="signup" (click)="clickSignup()">Create An Account ?</button> -->
+  </form>
+</fieldset>
+  </div>
+ 
+  </div> 
+  </div>
+  
+   

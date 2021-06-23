@@ -16,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,19 +35,17 @@ import com.example.ProductApplication.service.security.JwtGenerator;
 
 import io.jsonwebtoken.Jwts;
 
-
-
 @RestController
 @RequestMapping("/user")
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController extends ErrorHandler {
 
 	@Autowired
 	private Userservice userservice;
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	AuthenticationManager authenticationManager;
 
@@ -58,149 +57,142 @@ public class UserController extends ErrorHandler {
 
 	@Value("${practice.key}")
 	private String secretKey;
-	
+
 	@GetMapping("/status")
 	public String statusCheck() {
 		return "Healthy";
 	}
-	
+
 	@PostMapping("/registerUser")
-	public String registerUser(@Valid @RequestBody User user){
+	public String registerUser(@Valid @RequestBody User user) {
 		System.out.println("Inside Controller");
-		        
-				return userservice.userRegistration(user);
-				
-		
-		
+
+		return userservice.userRegistration(user);
+
 	}
+
 	@PostMapping("/login")
 	public String login(@RequestBody User appUser) {
 		System.out.println("Sudip");
 		logger.info("inside login");
-		
-		if(!userservice.backListUserLogin(appUser)){
+		System.out.println("User name "+ appUser.getUserEmail() + " User Password "+ appUser.getUserPassword());
+		if (!userservice.backListUserLogin(appUser)) {
 			return "User Already BlackListed";
-		}
-		else{
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(appUser.getUserEmail(), appUser.getUserPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtGenerator.generateToken(authentication);
-		return jwt;
+		} else {
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(appUser.getUserEmail(), appUser.getUserPassword()));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			String jwt = jwtGenerator.generateToken(authentication);
+			return jwt;
 		}
 	}
-	
-	
+
 	@GetMapping("/getUserDetails")
 	@PreAuthorize("hasRole('ROLE_USER')")
-	public User userDetails(final HttpServletRequest req){
-		
-		
-		final HttpServletRequest request=(HttpServletRequest)req;
+	public User userDetails(final HttpServletRequest req) {
+
+		final HttpServletRequest request = (HttpServletRequest) req;
 		final String authHeader = request.getHeader("authorization");
 		final String token = authHeader.substring(7);
 		String userEmail = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-    	return userservice.userDetails(userEmail);
-			
-		
-	}
-	
+		return userservice.userDetails(userEmail);
 
-	
+	}
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping("/addproduct")
 	public ResponseEntity<?> saveNewProduct(@RequestBody final ProductDetails product, final HttpServletRequest request,
 			final HttpServletResponse response) throws ProductAlreadyExistsException {
-		
-		
+
 		final String authHeader = request.getHeader("authorization");
 		final String token = authHeader.substring(7);
 		String userEmail = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
 		ResponseEntity<?> responseEntity;
-		try{
+		try {
 			product.setUserEmail(userEmail);
-		 
-			
-			responseEntity=new ResponseEntity<ProductDetails>(productService.addproduct(product),HttpStatus.CREATED);
-		
-		} catch(ProductAlreadyExistsException e){
-			responseEntity=new ResponseEntity<String>("{\"message\":\""+e.getMessage()+"\"}",HttpStatus.CONFLICT);
-		}
-		catch(Exception e){
-			responseEntity=new ResponseEntity<String>("{\"message\":\""+e.getMessage()+"\"}",HttpStatus.INTERNAL_SERVER_ERROR);
+
+			responseEntity = new ResponseEntity<ProductDetails>(productService.addproduct(product), HttpStatus.CREATED);
+
+		} catch (ProductAlreadyExistsException e) {
+			responseEntity = new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}",
+					HttpStatus.CONFLICT);
+		} catch (Exception e) {
+			responseEntity = new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}",
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return responseEntity;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping("/updateproduct")
 	public ResponseEntity<?> updateProduct(@RequestBody final ProductDetails product, final HttpServletRequest request,
 			final HttpServletResponse response) throws ProductNotFoundException {
-		
-		
+
 		final String authHeader = request.getHeader("authorization");
 		final String token = authHeader.substring(7);
 		String userEmail = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
 		ResponseEntity<?> responseEntity;
-		try{
+		try {
 			product.setUserEmail(userEmail);
-		 
-			
-			responseEntity=new ResponseEntity<ProductDetails>(productService.updateProduct(product),HttpStatus.CREATED);
-		
-		} catch(ProductNotFoundException e){
-			responseEntity=new ResponseEntity<String>("{\"message\":\""+e.getMessage()+"\"}",HttpStatus.CONFLICT);
-		}
-		catch(Exception e){
-			responseEntity=new ResponseEntity<String>("{\"message\":\""+e.getMessage()+"\"}",HttpStatus.INTERNAL_SERVER_ERROR);
+
+			responseEntity = new ResponseEntity<ProductDetails>(productService.updateProduct(product),
+					HttpStatus.CREATED);
+
+		} catch (ProductNotFoundException e) {
+			responseEntity = new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}",
+					HttpStatus.CONFLICT);
+		} catch (Exception e) {
+			responseEntity = new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}",
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return responseEntity;
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@DeleteMapping({ "/delete/product/{id}" })
-	public ResponseEntity<?> productlist(@PathVariable("id")int productid,final HttpServletRequest req) throws ProductNotFoundException {
-		
-		final HttpServletRequest request=(HttpServletRequest)req;
+	public ResponseEntity<?> productlist(@PathVariable("id") int productid, final HttpServletRequest req)
+			throws ProductNotFoundException {
+
+		final HttpServletRequest request = (HttpServletRequest) req;
 		final String authHeader = request.getHeader("authorization");
 		final String token = authHeader.substring(7);
-		
+
 		String userEmail = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
 		ResponseEntity<?> responseEntity;
 		try {
-			responseEntity = new ResponseEntity<>(productService.deleteProduct(productid,userEmail),HttpStatus.OK);
-		}
-		catch(ProductNotFoundException e) {
-			responseEntity=new ResponseEntity<String>("{\"message\":\""+e.getMessage()+"\"}",HttpStatus.CONFLICT);
-		}
-		catch(Exception e) {
-			responseEntity=new ResponseEntity<String>("{\"message\":\""+e.getMessage()+"\"}",HttpStatus.INTERNAL_SERVER_ERROR);
+			responseEntity = new ResponseEntity<>(productService.deleteProduct(productid, userEmail), HttpStatus.OK);
+		} catch (ProductNotFoundException e) {
+			responseEntity = new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}",
+					HttpStatus.CONFLICT);
+		} catch (Exception e) {
+			responseEntity = new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}",
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return responseEntity;
 	}
-	
+
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping({ "/productlist" })
 	public ResponseEntity<?> productlist(final HttpServletRequest req) throws ProductNotFoundException {
-		
-		final HttpServletRequest request=(HttpServletRequest)req;
+
+		final HttpServletRequest request = (HttpServletRequest) req;
 		final String authHeader = request.getHeader("authorization");
 		final String token = authHeader.substring(7);
 		String userEmail = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
 		ResponseEntity<?> responseEntity = null;
-		
+
 		try {
-			responseEntity = new ResponseEntity<List<ProductDetails>>(productService.productList(userEmail),HttpStatus.OK);
+			responseEntity = new ResponseEntity<List<ProductDetails>>(productService.productList(userEmail),
+					HttpStatus.OK);
+		} catch (ProductNotFoundException e) {
+			responseEntity = new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}",
+					HttpStatus.CONFLICT);
+		} catch (Exception e) {
+			responseEntity = new ResponseEntity<String>("{\"message\":\"" + e.getMessage() + "\"}",
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		catch (ProductNotFoundException e) {
-			responseEntity=new ResponseEntity<String>("{\"message\":\""+e.getMessage()+"\"}",HttpStatus.CONFLICT);
-		}catch (Exception e) {
-			responseEntity=new ResponseEntity<String>("{\"message\":\""+e.getMessage()+"\"}",HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		
+
 		return responseEntity;
 	}
 
-	
-	
 }

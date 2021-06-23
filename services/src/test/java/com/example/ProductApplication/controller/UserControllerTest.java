@@ -40,7 +40,7 @@ public class UserControllerTest {
 		User u=new User();
 		u.setUserId(1);
 		u.setUserName("Sudip");
-		u.setUserEmail("sobhon@gmail.com");
+		u.setUserEmail("sobhon1@gmail.com");
 		u.setUserContactNumber("7896523611");
 		u.setUserPassword("Sobhon1234@");
 		u.setRole("ROLE_USER");
@@ -60,7 +60,7 @@ public class UserControllerTest {
 			User u=new User();
 			u.setUserId(1);
 			u.setUserName("Sudip");
-			u.setUserEmail("sobhon@gmail.com");
+			u.setUserEmail("sobhon1@gmail.com");
 			u.setUserContactNumber("7896523611");
 			u.setUserPassword("Sobhon1234@");
 			u.setRole("ROLE_USER");
@@ -237,8 +237,8 @@ public class UserControllerTest {
 				@Test
 				public void loginTest()throws Exception{
 					User u=new User();
-					u.setUserEmail("anik@gmail.com");
-					u.setUserPassword("Anik1234@");
+					u.setUserEmail("sobhon1@gmail.com");
+					u.setUserPassword("Sobhon1234@");
 					ObjectMapper omap=new ObjectMapper();
 					mockmvc.perform(
 							post("/user/login").content(omap.writeValueAsString(u))
@@ -263,56 +263,24 @@ public class UserControllerTest {
 							);
 				}
 				
-			//	If user wants to save history of searchin item
-//				@Test
-//				@WithMockUser(roles="USER")
-//				public void saveHistoryOfNewsContent()throws Exception{
-//					UserSearchHistory u=new UserSearchHistory();
-//					u.setUserEmail("anik@gmail.com");
-//					u.setUserNewsSearch("Avangers");
-//					ObjectMapper omap=new ObjectMapper();
-//					mockmvc.perform(
-//							post("/user/userSearchNews").content(omap.writeValueAsString(u))
-//							.contentType("application/json;charset=UTF-8"))
-//							.andExpect(status().isOk()
-//					
-//					        
-//							);
-//				}
 
-				//	If Admin wants to save history of searchin item
-//				@Test
-//				@WithMockUser(roles="ADMIN")
-//				public void saveHistoryOfNewsContentFail()throws Exception{
-//					UserSearchHistory u=new UserSearchHistory();
-//					u.setUserEmail("anik@gmail.com");
-//					u.setUserNewsSearch("Avangers");
-//					ObjectMapper omap=new ObjectMapper();
-//					mockmvc.perform(
-//							post("/user/userSearchNews").content(omap.writeValueAsString(u))
-//							.contentType("application/json;charset=UTF-8"))
-//							.andExpect(status().isBadRequest()
-//					
-//					        
-//							);
-//				}
 				//User Details Fetch By user
 				@Test
-				@WithMockUser(roles="USER")
+				@WithMockUser(roles="ADMIN")
 				public void userDetailsTest() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/getUserDetails/anik@gmail.com")
+							get("/admin/getUserDetails/anik@gmail.com")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isOk());
 				}
 				//User Details Fetch By Admin 
 				@Test
-				@WithMockUser(roles="ADMIN")
+				@WithMockUser(roles="USER")
 				public void userDetailsTestFail() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/getUserDetails/anik@gmail.com")
+							get("/admin/getUserDetails/anik@gmail.com")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isBadRequest());
 				}
@@ -322,17 +290,17 @@ public class UserControllerTest {
 				public void userHistoryTest() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/getUserDetails/anik@gmail.com")
+							get("/admin/getUserDetails/anik@gmail.com")
 							.contentType("application/json;charset=UTF-8"))
-					        .andExpect(status().isOk());
+					        .andExpect(status().isBadRequest());
 				}
 				//User Details Fetch By Admin 
 				@Test
-				@WithMockUser(roles="ADMIN")
+				@WithMockUser(roles="USER")
 				public void userHistoryTestFail() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/getUserDetails/anik@gmail.com")
+							get("/admin/getUserDetails/anik@gmail.com")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isBadRequest());
 				}
@@ -343,7 +311,7 @@ public class UserControllerTest {
 				public void listOfUserTest() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/admin/getAllUsers")
+							get("/admin/getAllUsers")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isOk());
 				}
@@ -353,35 +321,18 @@ public class UserControllerTest {
 				public void listOfUserTestFail() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/admin/getAllUsers")
+							get("/admin/getAllUsers")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isBadRequest());
 				}
 				
-				@Test
-				@WithMockUser(roles="USER")
-                  public void deleteHistoryByIdTest() throws Exception{
-					
-					mockmvc.perform(
-							delete("/user/deleteNewsHistory/30")
-							.contentType("application/json;charset=UTF-8"))
-					        .andExpect(status().isOk());
-				}
-				@Test
-				@WithMockUser(roles="ADMIN")
-                  public void deleteHistoryByIdTestFail() throws Exception{
-					
-					mockmvc.perform(
-							delete("/user/deleteNewsHistory/30")
-							.contentType("application/json;charset=UTF-8"))
-					        .andExpect(status().isBadRequest());
-				}
+				
 				@Test
 				@WithMockUser(roles="ADMIN")
                   public void changeStatusOfUser() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/changeStatus/anik@gmail.com")
+							get("/admin/changeStatus/anik@gmail.com")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isOk());
 				}
@@ -390,7 +341,7 @@ public class UserControllerTest {
                   public void changeStatusOfUserFail() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/changeStatus/anik@gmail.com")
+							get("/admin/changeStatus/anik@gmail.com")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isBadRequest());
 				}
@@ -399,7 +350,7 @@ public class UserControllerTest {
                   public void getUserByUserNameTest() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/getSearchUsers/sudip")
+							get("/admin/getSearchUsers/sudip")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isOk());
 				}
@@ -408,7 +359,7 @@ public class UserControllerTest {
                   public void getUserByUserNameTestFail() throws Exception{
 					
 					mockmvc.perform(
-							get("/user/getSearchUsers/sudip")
+							get("/admin/getSearchUsers/sudip")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isBadRequest());
 				}
@@ -417,7 +368,7 @@ public class UserControllerTest {
                   public void deActiveUserListTest() throws Exception{
 					
 					mockmvc.perform(
-							get("/common/getAllDeAciveUser")
+							get("/admin/getAllDeAciveUser")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isOk());
 				}
@@ -426,7 +377,7 @@ public class UserControllerTest {
                   public void deActiveUserListTestFail() throws Exception{
 					
 					mockmvc.perform(
-							get("/common/getAllDeAciveUser")
+							get("/admin/getAllDeAciveUser")
 							.contentType("application/json;charset=UTF-8"))
 					        .andExpect(status().isBadRequest());
 				}
