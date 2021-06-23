@@ -10,7 +10,7 @@ export class UserdetailsService {
   constructor(private httpClient:HttpClient) { }
 
   userDetails():Observable<any>{
-    return this.httpClient.get("http://localhost:8085/user/getUserDetails");
+    return this.httpClient.get("http://13.233.105.119:8085/user/getUserDetails");
   }
 
 

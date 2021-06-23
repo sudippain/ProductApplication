@@ -18,15 +18,15 @@ export class UserslistService {
 
   AllUsersList():Observable<any>{
    
-    return this.http.get("http://localhost:8085/admin/getAllUsers");
+    return this.http.get("http://13.233.105.119:8085/admin/getAllUsers");
   }
 
   GetUser(userNameSearch:String):Observable<any>{
-    return this.http.get("http://localhost:8085/admin/getSearchUsers/"+userNameSearch);
+    return this.http.get("http://13.233.105.119:8085/admin/getSearchUsers/"+userNameSearch);
   }
 
   AllProducts():Observable<any>{
-    return this.http.get("http://localhost:8085/admin/getAllProductList");
+    return this.http.get("http://13.233.105.119:8085/admin/getAllProductList");
   }
 
  

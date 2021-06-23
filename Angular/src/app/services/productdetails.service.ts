@@ -11,18 +11,18 @@ export class ProductdetailsService {
   constructor(private httpClient:HttpClient) { }
 
   getProduct():Observable<any>{
-    return this.httpClient.get("http://localhost:8085/user/productlist");
+    return this.httpClient.get("http://13.233.105.119:8085/user/productlist");
   }
   removeProductItem(id):Observable<any>{
-    return this.httpClient.delete("http://localhost:8085/user/delete/product/"+id);
+    return this.httpClient.delete("http://13.233.105.119:8085/user/delete/product/"+id);
   }
 
   updateProductItem(pd:ProductDetails):Observable<any>{
     console.log("Call Update Service");
-    return this.httpClient.post("http://localhost:8085/user/updateproduct",pd);
+    return this.httpClient.post("http://13.233.105.119:8085/user/updateproduct",pd);
   }
   addProductItem(pd:ProductDetails):Observable<any>{
-    return this.httpClient.post("http://localhost:8085/user/addproduct",pd);
+    return this.httpClient.post("http://13.233.105.119:8085/user/addproduct",pd);
   }
 
 }
