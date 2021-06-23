@@ -29,7 +29,7 @@
 # CMD [ "node", "server.js" ]
 
 
-FROM node:10.16.1-alpine AS builder
+FROM node:10.18-alpine AS builder
 WORKDIR /ANGULAR
 COPY . .
 RUN npm i
