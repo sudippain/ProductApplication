@@ -19,7 +19,7 @@ import com.example.ProductApplication.service.ProductService;
 import com.example.ProductApplication.service.Userservice;
 @RestController
 @RequestMapping("admin")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://13.233.105.119:80")
 public class AuthorizationController extends ErrorHandler {
 
 	@Autowired

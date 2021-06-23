@@ -37,7 +37,7 @@ import io.jsonwebtoken.Jwts;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://13.233.105.119:80")
 public class UserController extends ErrorHandler {
 
 	@Autowired
