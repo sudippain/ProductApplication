@@ -17,6 +17,7 @@ export class ProductComponent implements OnInit {
 
 
   editable:boolean=false; 
+  productlen:boolean=false; 
 
 
   productUpdateForm:FormGroup;
@@ -73,8 +74,14 @@ export class ProductComponent implements OnInit {
     this.productDetailsService.getProduct().subscribe(data=>{
 
       this.productList=data;
+      if(this.productList.length>0){
+        this.productlen=true;
       console.log(this.productList.length);
-      
+    }
+    else{
+      this.productlen=false;
+      console.log(this.productList.length);
+    }
      });
   }
 
