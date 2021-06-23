@@ -84,4 +84,11 @@ export class ModifyproductComponent implements OnInit {
              
     }
 
+    logout()
+    {
+      window.sessionStorage.clear();
+      this.router.navigate(['Login']);
+  
+    }
+
 }

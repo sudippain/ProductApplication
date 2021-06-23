@@ -12,6 +12,7 @@ import { ProductdetailsService } from 'src/app/services/productdetails.service';
 export class ProductComponent implements OnInit {
 
  productList : any;
+ product : any;
  item : ProductDetails = new ProductDetails();
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserslistService } from 'src/app/services/userslist.service';
 
 
@@ -11,7 +11,8 @@ import { UserslistService } from 'src/app/services/userslist.service';
 export class ProductListComponent implements OnInit {
 
   productList : any;
-  constructor(private router:RouterModule,private userListService: UserslistService) { }
+  product:any;
+  constructor(private router:Router,private userListService: UserslistService) { }
 
   ngOnInit() {
     this.allproductsDetails();
@@ -24,6 +25,11 @@ export class ProductListComponent implements OnInit {
       console.log(this.productList.length);
       
      });
+  }
+  logout()
+  {
+	  window.sessionStorage.clear();
+    this.router.navigate(['Login']);
   }
 
 }
