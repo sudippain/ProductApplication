@@ -12,7 +12,7 @@ export class UserslistService {
 
   changeUserStatus(userEmail:any):Observable<any>{
    
-    return this.http.get("http://localhost:8085/admin/changeStatus/"+userEmail,{responseType:'text'});
+    return this.http.get("http://13.233.105.119:8085/admin/changeStatus/"+userEmail,{responseType:'text'});
     
   }
 
