@@ -79,8 +79,8 @@ export class LoginComponent implements OnInit {
         this.status=data.toString();
       if(this.status.match("User Already BlackListed")){
         alert("BlackListed User");
-        window.location.reload()
-        // this.clickSignup();
+        // window.location.reload()
+         this.clickSignup();
       }
       else{
         alert("Wellcome");

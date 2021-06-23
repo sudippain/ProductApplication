@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="U_Id")
 	private int  userId;
 	
