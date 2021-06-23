@@ -11,7 +11,7 @@ export class LoginService {
   constructor(private http:HttpClient) { }
 
   userlogin(user:User){
-    return this.http.post("http://13.233.105.119/:8085/user/login",user,{responseType:'text'});
+    return this.http.post("http://13.233.105.119:8085/user/login",user,{responseType:'text'});
 
   }
 
