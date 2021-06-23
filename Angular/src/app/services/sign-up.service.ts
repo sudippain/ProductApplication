@@ -11,7 +11,7 @@ export class SignUpService {
   constructor(private http:HttpClient) { }
 
   usersignup(user:User){
-    return this.http.post("http://localhost:8085/user/registerUser",user,{responseType:'text'});
+    return this.http.post("http://13.233.105.119:8085/user/registerUser",user,{responseType:'text'});
   }
  
 }
