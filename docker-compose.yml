@@ -6,7 +6,7 @@ services:
    image: productappserviceimage:latest
    build: 
      context: services/
-     dockerfile: .
+     dockerfile: Dockerfile
    restart: always
    #network_mode: host
    container_name: productAppServiceContainer
@@ -21,7 +21,7 @@ services:
     image: productappuiimage:latest
     build: 
      context: Angular/
-     dockerfile: .
+     dockerfile: Dockerfile
     #network_mode: host
     container_name: productAppUiContainer
     ports:
