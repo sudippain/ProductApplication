@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+
+     
+  web:
+   image: productappserviceimage:latest
+   build: 
+     context: services/
+     dockerfile: .
+   restart: always
+   #network_mode: host
+   container_name: productAppServiceContainer
+   ports:
+     - "8085:8085"
+   expose:
+     - "8085"
+   healthcheck:
+        test: "exit 0"     
+  
+  angular:
+    image: productappuiimage:latest
+    build: 
+     context: Angular/
+     dockerfile: .
+    #network_mode: host
+    container_name: productAppUiContainer
+    ports:
+      - "4200:4200"
+    expose:
+     - "4200"
