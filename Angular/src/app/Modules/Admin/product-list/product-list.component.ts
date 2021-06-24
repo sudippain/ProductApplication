@@ -24,7 +24,19 @@ export class ProductListComponent implements OnInit {
       this.productList=data;
       console.log(this.productList.length);
       
-     });
+     },
+     (error)=>{
+      console.log(error.status);
+      if(error.status==400){
+        alert("You don't have permission,Only Admin can access");
+        this.router.navigate(['Product']);
+      }
+      else{ alert("Something Went Wrong");}
+     // 
+     
+    }
+     
+     );
   }
   logout()
   {
