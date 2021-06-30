@@ -7,30 +7,26 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserslistService {
-  url = "";
-  constructor(private http:HttpClient) { 
-    this.url = window.location.hostname;
-  }
+
+  constructor(private http:HttpClient) { }
 
   changeUserStatus(userEmail:any):Observable<any>{
-    this.url = this.url + ":8085/user/getUserDetails"+userEmail;
-    return this.http.get(this.url,{responseType:'text'});
+   
+    return this.http.get("http://52.66.15.105:8085/admin/changeStatus/"+userEmail,{responseType:'text'});
     
   }
 
   AllUsersList():Observable<any>{
-    this.url = this.url + ":8085/admin/getAllUsers";
-    return this.http.get(this.url);
+   
+    return this.http.get("http://52.66.15.105:8085/admin/getAllUsers");
   }
 
   GetUser(userNameSearch:String):Observable<any>{
-    this.url = this.url + ":8085/admin/getSearchUsers/"+userNameSearch;
-    return this.http.get(this.url);
+    return this.http.get("http://52.66.15.105:8085/admin/getSearchUsers/"+userNameSearch);
   }
 
   AllProducts():Observable<any>{
-    this.url = this.url + ":8085/admin/getAllProductList";
-    return this.http.get(this.url);
+    return this.http.get("http://52.66.15.105:8085/admin/getAllProductList");
   }
 
  

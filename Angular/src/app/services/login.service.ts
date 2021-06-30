@@ -7,16 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  url = "";
-  constructor(private http:HttpClient) {
-   this.url = window.location.hostname;
-   }
-  
-  userlogin(user:User){
 
-    
-    this.url = this.url + ":8085/user/login";
-    return this.http.post(this.url,user,{responseType:'text'});
+  constructor(private http:HttpClient) { }
+
+  userlogin(user:User){
+    return this.http.post("http://52.66.15.105/:8085/user/login",user,{responseType:'text'});
 
   }
 

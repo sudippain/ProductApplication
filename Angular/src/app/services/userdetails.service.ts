@@ -6,14 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserdetailsService {
-  url = "";
-  constructor(private httpClient:HttpClient) {
-    this.url = window.location.hostname;
-   }
+
+  constructor(private httpClient:HttpClient) { }
 
   userDetails():Observable<any>{
-    this.url = this.url + ":8085/user/getUserDetails";
-    return this.httpClient.get(this.url);
+    return this.httpClient.get("http://52.66.15.105:8085/user/getUserDetails");
   }
 
 
