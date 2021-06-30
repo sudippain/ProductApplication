@@ -7,22 +7,29 @@ import { ProductDetails } from '../Model/product-details';
   providedIn: 'root'
 })
 export class ProductdetailsService {
-
-  constructor(private httpClient:HttpClient) { }
+  url = "";
+  constructor(private httpClient:HttpClient) {
+    this.url = window.location.hostname;
+   }
 
   getProduct():Observable<any>{
-    return this.httpClient.get("http://13.233.105.119:8085/user/productlist");
+  
+    this.url = this.url + ":8085/user/productlist";
+    return this.httpClient.get(this.url);
   }
   removeProductItem(id):Observable<any>{
-    return this.httpClient.delete("http://13.233.105.119:8085/user/delete/product/"+id);
+    this.url = this.url + ":8085/user/delete/product/"+id;
+    return this.httpClient.delete(this.url);
   }
 
   updateProductItem(pd:ProductDetails):Observable<any>{
     console.log("Call Update Service");
-    return this.httpClient.post("http://13.233.105.119:8085/user/updateproduct",pd);
+    this.url = this.url + ":8085/user/updateproduct";
+    return this.httpClient.post(this.url,pd);
   }
   addProductItem(pd:ProductDetails):Observable<any>{
-    return this.httpClient.post("http://13.233.105.119:8085/user/addproduct",pd);
+    this.url = this.url + ":8085/user/addproduct";
+    return this.httpClient.post(this.url,pd);
   }
 
 }

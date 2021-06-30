@@ -8,6 +8,7 @@
 # COPY . .
 # expose 4200
 # CMD ["npm", "start"]
+
 # FROM node:14
 
 # # Create app directory
@@ -29,6 +30,8 @@
 # CMD [ "node", "server.js" ]
 
 
+
+ ####### Original ######
 FROM node:10.18-alpine AS builder
 WORKDIR /ANGULAR
 COPY . .

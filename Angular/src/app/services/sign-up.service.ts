@@ -7,11 +7,14 @@ import { User } from '../Model/user';
   providedIn: 'root'
 })
 export class SignUpService {
-
-  constructor(private http:HttpClient) { }
+  url = "";
+  constructor(private http:HttpClient) { 
+    this.url = window.location.hostname;
+  }
 
   usersignup(user:User){
-    return this.http.post("http://13.233.105.119:8085/user/registerUser",user,{responseType:'text'});
+    this.url = this.url + ":8085/user/registerUser";
+    return this.http.post(this.url,user,{responseType:'text'});
   }
  
 }
